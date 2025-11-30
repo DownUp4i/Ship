@@ -15,6 +15,7 @@ public class ShipMovement : MonoBehaviour
     private float _incline;
 
     private float _dotProduct;
+    private float _dotProduct2;
 
     private float _currentSpeed;
 
@@ -63,12 +64,20 @@ public class ShipMovement : MonoBehaviour
         foreach (Transform sail in _sailController.Sails)
         {
             _dotProduct = Vector3.Dot(_wind.Direction, sail.forward);
+            _dotProduct2 = Vector3.Dot(_wind.Direction, transform.forward);
         }
     }
 
     private void Move()
     {
-        float speed = _wind.Force * _dotProduct;
+        float speed = _wind.Force * _dotProduct * _dotProduct2;
+
+        Debug.Log(_dotProduct);
+        //Debug.Log(_dotProduct2);
+
+        foreach (Transform sail in _sailController.Sails)
+        {
+        }
 
         _currentSpeed = Mathf.Lerp(_currentSpeed, speed, 1f * Time.deltaTime);
 
